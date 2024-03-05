@@ -3,6 +3,7 @@
  * @see https://v0.dev/t/32IcINE7Efx
  */
 
+import NewTicket from "./form/NewTicket";
 import MainKanbam from "./kanbam/MainKanbam";
 import SidebarKanbam from "./kanbam/SidebarKanbam";
 
@@ -11,7 +12,9 @@ export function Kambam() {
     <div className="bg-[#1A1C23] min-h-screen w-full">
       <div className="flex">
         <SidebarKanbam />
+        <NewTicket />
         <MainKanbam />
+
       </div>
     </div>
   );

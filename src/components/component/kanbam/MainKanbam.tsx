@@ -3,22 +3,20 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import NavbarKanbam from "./NavbarKanbam";
-
-const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
 import ColumnKanbam from "./Column";
 import { filtraTicketType } from "@/helper/filters";
-
-
+const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
 function MainKanbam() {
 
-  const { data, isLoading, error } = useQuery("tickets", () => {
+  const { data, isLoading, error, refetch } = useQuery("tickets", () => {
     return axios.get('/api/ticket')
       .then(response => response.data)
   }, {
-    retry: 5,
-    refetchOnWindowFocus: true,
-    refetchInterval: 5000,
+    // retry: 5,
+    // refetchOnWindowFocus: true,
+    refetchInterval: 1000
   });
+
   if (isLoading) {
     return <div className="spin-in-1">Loading</div>
   }

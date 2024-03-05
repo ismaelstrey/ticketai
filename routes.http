@@ -2,16 +2,14 @@
 POST http://localhost:3000/api/ticket
 Content-Type: application/json
 
-{     
-  
-  "name":"Sen internet",
+{    
+  "name":"Sem internet",
   "description":"Estamo sem internet desde as 18 horas",
   "type":"INICIADO" 
 }
 ###
 PATCH  http://localhost:3000/api/ticket/3
 Content-Type: application/json
-
 {     
     "title": "internet ruim",
     "subTitle": "Internet ficou lenta derrepente",

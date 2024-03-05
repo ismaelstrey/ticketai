@@ -1,9 +1,12 @@
 export interface TicketProps {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   views?: number;
   type?: string;
+}
+export interface CurretDataTicket {
+  curretData: TicketProps[]
 }
 export interface CardProps extends TicketProps {
   edit?: (id: number) => void;
