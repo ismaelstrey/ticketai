@@ -3,18 +3,16 @@
  * @see https://v0.dev/t/32IcINE7Efx
  */
 
-import MainKanbam from "./kanbam/MainKanbam"
-import SidebarKanbam from "./kanbam/SidebarKanbam"
+import MainKanbam from "./kanbam/MainKanbam";
+import SidebarKanbam from "./kanbam/SidebarKanbam";
 
 export function Kambam() {
   return (
-    <div className="bg-[#1A1C23] min-h-screen">
+    <div className="bg-[#1A1C23] min-h-screen w-full">
       <div className="flex">
         <SidebarKanbam />
         <MainKanbam />
       </div>
     </div>
-  )
+  );
 }
-
-

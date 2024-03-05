@@ -1,0 +1,49 @@
+
+POST http://localhost:3000/api/ticket
+Content-Type: application/json
+
+{     
+  
+  "name":"Sen internet",
+  "description":"Estamo sem internet desde as 18 horas",
+  "type":"ABERTO" 
+}
+###
+PATCH  http://localhost:3000/api/ticket/3
+Content-Type: application/json
+
+{     
+    "title": "internet ruim",
+    "subTitle": "Internet ficou lenta derrepente",
+    "description": "estava pulando corda e rebentou o cabo",
+    "observacao": "observando",
+    "status": "CONCLUIDO",
+    "prioridade": "ALTA",
+    "tecnicoId": null,
+    "empresaId": null,
+    "categoriaId": null    
+}
+###
+GET http://localhost:3000/api/ticket
+Content-Type: application/json
+
+###
+
+###
+DELETE  http://localhost:3000/api/ticket/1
+Content-Type: application/json
+
+###
+
+###
+GET http://localhost:3000/api/empresa
+Content-Type: application/json
+
+###
+
+# ATIVO
+#   DESATIVADO
+#   FAZENDO
+#   PAUSADO
+#   CANCELADO
+#   ABERTO
