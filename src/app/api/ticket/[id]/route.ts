@@ -7,8 +7,8 @@ export async function DELETE(
 ) {
   try {
     const idTicket = Number(params.id);
-    console.log(idTicket);
-    const result = prisma.ticket.deleteMany({ where: { id: idTicket } });
+    const result = await prisma.ticket.delete({ where: { id: idTicket } });
+
     return NextResponse.json(result);
   } catch (error) {
     console.log(error);

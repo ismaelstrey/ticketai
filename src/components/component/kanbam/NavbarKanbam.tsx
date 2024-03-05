@@ -15,7 +15,7 @@ function NavbarKanbam() {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  console.log(watch("search")); // watch input value by passing the name of it
+  // console.log(watch("search")); // watch input value by passing the name of it
   return (
     <>
       <header className="flex items-center justify-between p-4 bg-[#111827]">
@@ -25,9 +25,8 @@ function NavbarKanbam() {
           {/* include validation with required or other standard HTML validation rules */}
           <input
             {...register("search", { required: true })}
-            className={`rounded-md h-11 text-gray-800 ${
-              errors.search && "bg-red-50"
-            }`}
+            className={`rounded-md h-11 text-gray-800 p-2 ${errors.search && "bg-red-50"
+              }`}
           />
           {/* errors will return when field validation fails  */}
           {errors.search && <span>Esse campo é Obrigatorio</span>}

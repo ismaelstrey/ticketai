@@ -1,48 +1,37 @@
+'use client'
 import React from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
 import NavbarKanbam from "./NavbarKanbam";
-const tickets = [
-  {
-    id: 1,
-    name: "Suporte",
-    description: "Houve um raio as 14 hora  tudo vermelho  tudo vermelho",
-    type: "ABERTO",
-  },
-  {
-    id: 2,
-    name: "Suporte",
-    description: "Houve um raio as 14 hora  tudo vermelho  tudo vermelho",
-    type: "INICIADO",
-  },
-  {
-    id: 3,
-    name: "Suporte",
-    description: "Houve um raio as 14 hora  tudo vermelho  tudo vermelho",
-    type: "PAUSADO",
-  },
-  {
-    id: 4,
-    name: "Suporte",
-    description: "Houve um raio as 14 hora  tudo vermelho  tudo vermelho",
-    type: "CONCLUIDO",
-  },
-  {
-    id: 5,
-    name: "Suporte",
-    description: "Houve um raio as 14 hora  tudo vermelho  tudo vermelho",
-    type: "CONCLUIDO",
-  },
-];
+
 const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
 import ColumnKanbam from "./Column";
 import { filtraTicketType } from "@/helper/filters";
 
+
 function MainKanbam() {
+
+  const { data, isLoading, error } = useQuery("tickets", () => {
+    return axios.get('/api/ticket')
+      .then(response => response.data)
+  }, {
+    retry: 5,
+    refetchOnWindowFocus: true,
+    refetchInterval: 5000,
+  });
+  if (isLoading) {
+    return <div className="spin-in-1">Loading</div>
+  }
+  if (error) {
+    return <div className="spin-in-1">Algo deu errado</div>
+  }
+
   const RenderColumn = () =>
     ticketType.map((ticketTypes, key) => (
       <ColumnKanbam
         key={key}
         title={ticketTypes}
-        tickets={filtraTicketType(tickets, ticketTypes)}
+        tickets={filtraTicketType(data, ticketTypes)}
       />
     ));
   return (

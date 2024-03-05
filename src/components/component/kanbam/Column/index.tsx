@@ -3,7 +3,7 @@ import Card from '../Card'
 import { ColumnKanbamProps } from '@/@types/ticketTypes'
 
 function ColumnKanbam({ title, tickets }: ColumnKanbamProps) {
-    const ListaTicket = () => tickets.map(ticket => <Card {...ticket} />)
+    const ListaTicket = () => tickets.map((ticket, key) => <Card key={key} {...ticket} />)
     return (
         <>
             <section className="bg-[#1F2937] p-4 md:p-4 rounded-lg">

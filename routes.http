@@ -6,7 +6,7 @@ Content-Type: application/json
   
   "name":"Sen internet",
   "description":"Estamo sem internet desde as 18 horas",
-  "type":"ABERTO" 
+  "type":"INICIADO" 
 }
 ###
 PATCH  http://localhost:3000/api/ticket/3
@@ -30,7 +30,7 @@ Content-Type: application/json
 ###
 
 ###
-DELETE  http://localhost:3000/api/ticket/1
+DELETE  http://localhost:3000/api/ticket/2
 Content-Type: application/json
 
 ###
