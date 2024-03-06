@@ -11,6 +11,7 @@ import { CardProps, TicketProps } from "@/@types/ticketTypes";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Draggable } from "@hello-pangea/dnd";
 
 function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
   const queryClient = useQueryClient()
@@ -33,31 +34,41 @@ function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
   const notify = (name: string) => toast.warning(`Ticket ${name} deletado com sucesso`);
   return (
     <>
+      <Draggable
+        key={id}
+        draggableId={id ? id.toString() : ''}
+        index={id ? id : 0}
+        shouldRespectForcePress
+      >
+        {(provided, snapshot) => (
+          <div         {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef} className="bg-[#111827] p-4 md:p-4 rounded-lg">
+            <Badge className="mb-2 text-gray-400" variant="secondary">
+              #{id}
+              <h3 className="hidden md:block"> _ Empresa |--| Luiz</h3>
+            </Badge>
 
-      <div className="bg-[#111827] p-4 md:p-4 rounded-lg">
-        <Badge className="mb-2 text-gray-400" variant="secondary">
-          #{id}
-          <h3 className="hidden md:block"> _ Empresa |--| Luiz</h3>
-        </Badge>
-
-        <p className="text-[#9CA3AF] hidden md:block">{name}</p>
-        <p className="text-[#9CA3AF] hidden md:block">{description}</p>
-        <div className="flex justify-between mt-4">
-          <EyeIcon className="text-white cursor-pointer hover:text-blue-500" />
-          <FileEditIcon
-            className="text-white cursor-pointer hover:text-blue-500"
-            onClick={() => console.log("oi FileEditIcon")}
-          />
-          <TrashIcon
-            className="text-white cursor-pointer hover:text-blue-500"
-            onClick={() => id && mutation.mutate(id)}
-          />
-          <CircleEllipsisIcon
-            className="text-white cursor-pointer hover:text-blue-500"
-            onClick={() => console.log("oi detalhes")}
-          />
-        </div>
-      </div>
+            <p className="text-[#9CA3AF] hidden md:block">{name}</p>
+            <p className="text-[#9CA3AF] hidden md:block">{description}</p>
+            <div className="flex justify-between mt-4">
+              <EyeIcon className="text-white cursor-pointer hover:text-blue-500" />
+              <FileEditIcon
+                className="text-white cursor-pointer hover:text-blue-500"
+                onClick={() => console.log("oi FileEditIcon")}
+              />
+              <TrashIcon
+                className="text-white cursor-pointer hover:text-blue-500"
+                onClick={() => id && mutation.mutate(id)}
+              />
+              <CircleEllipsisIcon
+                className="text-white cursor-pointer hover:text-blue-500"
+                onClick={() => console.log("oi detalhes")}
+              />
+            </div>
+          </div>
+        )}
+      </Draggable>
     </>
   );
 }

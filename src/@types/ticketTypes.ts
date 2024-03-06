@@ -9,6 +9,7 @@ export interface CurretDataTicket {
   curretData: TicketProps[]
 }
 export interface CardProps extends TicketProps {
+  // index: number;
   edit?: (id: number) => void;
   deleta?: (id: number) => void;
   more?: (id: number) => void;
