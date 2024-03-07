@@ -1,9 +1,8 @@
-
 import { Label } from '@/components/ui/label';
 import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import OpenFormTicket from './OpenFormTicket';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { TicketProps } from '@/@types/ticketTypes';
 import { toast } from 'react-toastify';
@@ -13,7 +12,9 @@ type Inputs = {
     type: string;
 };
 
+
 function NewTicket() {
+    const queryClient = useQueryClient()
     const [ativo, setAtivo] = useState(false)
     const {
         register,
@@ -35,6 +36,9 @@ function NewTicket() {
         onSuccess: (data) => {
 
             notify(data.name)
+            queryClient.invalidateQueries(
+                ["tickets"],
+            )
 
         },
         onError: (error) => {

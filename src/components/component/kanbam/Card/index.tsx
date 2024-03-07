@@ -7,11 +7,12 @@ import {
   CircleEllipsisIcon,
 } from "@/components/ui/icons";
 import { Badge } from "@/components/ui/badge";
-import { CardProps, TicketProps } from "@/@types/ticketTypes";
+import { CardProps } from "@/@types/ticketTypes";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Draggable } from "@hello-pangea/dnd";
+import { playAlertLixo } from "@/helper/beep";
 
 function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
   const queryClient = useQueryClient()
@@ -24,11 +25,16 @@ function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
     },
     onSuccess: (data) => {
       notify(data.name)
-      // @ts-ignore
-      queryClient.setQueryData("tickets", (curretData) => curretData.map((ticket: TicketProps) => ticket)
+      playAlertLixo()
+      // queryClient.setQueryData("tickets", (curretData) => curretData.map((ticket: TicketProps) => ticket)
+      queryClient.invalidateQueries(
+        ["tickets"],
       )
 
-    }
+    },
+    onError() {
+      notify("Erro ao deletar")
+    },
   })
 
   const notify = (name: string) => toast.warning(`Ticket ${name} deletado com sucesso`);
@@ -41,7 +47,8 @@ function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
         shouldRespectForcePress
       >
         {(provided, snapshot) => (
-          <div         {...provided.draggableProps}
+          <div
+            {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef} className="bg-[#111827] p-4 md:p-4 rounded-lg">
             <Badge className="mb-2 text-gray-400" variant="secondary">
@@ -49,9 +56,11 @@ function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
               <h3 className="hidden md:block"> _ Empresa |--| Luiz</h3>
             </Badge>
 
-            <p className="text-[#9CA3AF] hidden md:block">{name}</p>
-            <p className="text-[#9CA3AF] hidden md:block">{description}</p>
-            <div className="flex justify-between mt-4">
+            <div>
+              <p className="text-[#9CA3AF] hidden md:block">{name}</p>
+              <p className="text-[#9CA3AF] hidden md:block">{description}</p>
+            </div>
+            <div className="flex justify-between mt-4 p-2 border-t border-t-gray-600 border-dotted">
               <EyeIcon className="text-white cursor-pointer hover:text-blue-500" />
               <FileEditIcon
                 className="text-white cursor-pointer hover:text-blue-500"

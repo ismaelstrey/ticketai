@@ -8,6 +8,7 @@ import { DragDropContext } from "@hello-pangea/dnd";
 import { TicketProps } from "@/@types/ticketTypes";
 import { getTicketApi, updateTicketApi } from "@/services/Api";
 import { toast } from "react-toastify";
+import { playAlertSound } from "@/helper/beep";
 const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
 function MainKanbam() {
   const { data, isLoading, error, refetch } = useQuery("tickets", () => {
@@ -19,6 +20,7 @@ function MainKanbam() {
       return updateTicketApi({ ...ticket }).then((response) => response);
     },
     onSuccess: (data) => {
+      playAlertSound()
       notify(data.name);
     },
   });
