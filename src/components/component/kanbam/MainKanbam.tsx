@@ -1,17 +1,29 @@
 "use client";
 import React from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import NavbarKanbam from "./NavbarKanbam";
 import ColumnKanbam from "./Column";
 import { filtraTicketType, filtraTiketPorId } from "@/helper/filters";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { TicketProps } from "@/@types/ticketTypes";
 import { getTicketApi, updateTicketApi } from "@/services/Api";
+import { toast } from "react-toastify";
 const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
 function MainKanbam() {
   const { data, isLoading, error, refetch } = useQuery("tickets", () => {
     return getTicketApi().then((response) => response);
   });
+
+  const mutation = useMutation({
+    mutationFn: (ticket: TicketProps) => {
+      return updateTicketApi({ ...ticket }).then((response) => response);
+    },
+    onSuccess: (data) => {
+      notify(data.name);
+    },
+  });
+  const notify = (name: string) =>
+    toast.success(`Ticket ${name} atualizado com sucesso`);
 
   async function onDragEnd(result: any, tikets: TicketProps[]) {
     if (!result.destination) return;
@@ -21,8 +33,7 @@ function MainKanbam() {
     const status: string = destination.droppableId;
     const filtrado = await filtraTiketPorId(id, tikets);
     filtrado.type = status;
-    updateTicketApi({ ...filtrado }).then((teste) => console.log(teste));
-    console.log(filtrado);
+    mutation.mutate(filtrado);
   }
 
   const RenderColumn = () =>
@@ -53,3 +64,6 @@ function MainKanbam() {
 }
 
 export default MainKanbam;
+function notify(name: string) {
+  throw new Error("Function not implemented.");
+}
