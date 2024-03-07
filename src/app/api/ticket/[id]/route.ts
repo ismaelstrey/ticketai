@@ -15,3 +15,22 @@ export async function DELETE(
     return NextResponse.json(error);
   }
 }
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: number } }
+) {
+  try {
+    const idTicket = Number(params.id);
+    const data = await request.json();
+    const result = await prisma.ticket.update({
+      where: { id: idTicket },
+      data,
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(error);
+  }
+}

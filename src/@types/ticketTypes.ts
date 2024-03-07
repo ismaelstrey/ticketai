@@ -6,7 +6,7 @@ export interface TicketProps {
   type?: string;
 }
 export interface CurretDataTicket {
-  curretData: TicketProps[]
+  curretData: TicketProps[];
 }
 export interface CardProps extends TicketProps {
   // index: number;
@@ -16,7 +16,7 @@ export interface CardProps extends TicketProps {
 }
 export interface ColumnKanbamProps {
   title: string;
-  tickets: CardProps[];
+  tickets?: CardProps[];
 }
 export interface ClientProps {
   id: number;

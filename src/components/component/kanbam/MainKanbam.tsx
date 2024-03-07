@@ -1,30 +1,17 @@
-'use client'
+"use client";
 import React from "react";
-import axios from "axios";
 import { useQuery } from "react-query";
 import NavbarKanbam from "./NavbarKanbam";
 import ColumnKanbam from "./Column";
 import { filtraTicketType, filtraTiketPorId } from "@/helper/filters";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { TicketProps } from "@/@types/ticketTypes";
+import { getTicketApi, updateTicketApi } from "@/services/Api";
 const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
 function MainKanbam() {
-
   const { data, isLoading, error, refetch } = useQuery("tickets", () => {
-    return axios.get('/api/ticket')
-      .then(response => response.data)
-  }, {
-    // retry: 5,
-    // refetchOnWindowFocus: true,
-    // refetchInterval: 1000
+    return getTicketApi().then((response) => response);
   });
-
-  if (isLoading) {
-    return <div className="spin-in-1">Loading</div>
-  }
-  if (error) {
-    return <div className="spin-in-1">Algo deu errado</div>
-  }
 
   async function onDragEnd(result: any, tikets: TicketProps[]) {
     if (!result.destination) return;
@@ -34,9 +21,8 @@ function MainKanbam() {
     const status: string = destination.droppableId;
     const filtrado = await filtraTiketPorId(id, tikets);
     filtrado.type = status;
-    // await atualizarTicketFn(filtrado);
-    // await atualizar(filtrado);
-    console.log(filtrado)
+    updateTicketApi({ ...filtrado }).then((teste) => console.log(teste));
+    console.log(filtrado);
   }
 
   const RenderColumn = () =>
@@ -44,7 +30,7 @@ function MainKanbam() {
       <ColumnKanbam
         key={key}
         title={ticketTypes}
-        tickets={filtraTicketType(data, ticketTypes)}
+        tickets={data && filtraTicketType(data, ticketTypes)}
       />
     ));
   return (
@@ -60,7 +46,6 @@ function MainKanbam() {
           >
             <RenderColumn />
           </DragDropContext>
-
         </div>
       </main>
     </>
