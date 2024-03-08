@@ -9,28 +9,25 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { CardProps } from "@/@types/ticketTypes";
 import { useMutation, useQueryClient } from "react-query";
-import axios from "axios";
+
 import { toast } from "react-toastify";
 import { Draggable } from "@hello-pangea/dnd";
 import { playAlertLixo } from "@/helper/beep";
+import { deleteTicketApi } from "@/services/Api";
 
-function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
+function Card({ id, name, description, client, views, edit, deleta, more }: CardProps) {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
     mutationFn: (ticketId: number) => {
-      return axios.delete(`/api/ticket/${ticketId}`)
-        .then(response => response.data)
-
+      return deleteTicketApi(ticketId).then((response) => response)
     },
     onSuccess: (data) => {
       notify(data.name)
       playAlertLixo()
-      // queryClient.setQueryData("tickets", (curretData) => curretData.map((ticket: TicketProps) => ticket)
       queryClient.invalidateQueries(
         ["tickets"],
       )
-
     },
     onError() {
       notify("Erro ao deletar")
@@ -52,10 +49,9 @@ function Card({ id, name, description, views, edit, deleta, more }: CardProps) {
             {...provided.dragHandleProps}
             ref={provided.innerRef} className="bg-[#111827] p-4 md:p-4 rounded-lg">
             <Badge className="mb-2 text-gray-400" variant="secondary">
-              #{id}
-              <h3 className="hidden md:block"> _ Empresa |--| Luiz</h3>
+              <span className="text-white font-extrabold">#{id}</span>
+              <h3 className="hidden text-blue-800 ml-3 md:block">/ {client?.name} / <span className="text-yellow-700">{client?.type}</span></h3>
             </Badge>
-
             <div>
               <p className="text-[#9CA3AF] hidden md:block">{name}</p>
               <p className="text-[#9CA3AF] hidden md:block">{description}</p>

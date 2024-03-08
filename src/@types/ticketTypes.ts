@@ -13,6 +13,7 @@ export interface CardProps extends TicketProps {
   edit?: (id: number) => void;
   deleta?: (id: number) => void;
   more?: (id: number) => void;
+  client?: ClientProps;
 }
 export interface ColumnKanbamProps {
   title: string;

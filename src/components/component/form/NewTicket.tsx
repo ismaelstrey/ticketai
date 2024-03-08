@@ -2,19 +2,25 @@ import { Label } from '@/components/ui/label';
 import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import OpenFormTicket from './OpenFormTicket';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { TicketProps } from '@/@types/ticketTypes';
 import { toast } from 'react-toastify';
+import { getClienteApi } from '@/services/Api';
 type Inputs = {
     name: string;
     description: string;
     type: string;
+    clientId?: number;
 };
 
 
 function NewTicket() {
     const queryClient = useQueryClient()
+    const { data, isLoading, error, refetch } = useQuery("clientes", () => {
+        return getClienteApi().then((response) => response);
+    });
+
     const [ativo, setAtivo] = useState(false)
     const {
         register,
@@ -23,13 +29,14 @@ function NewTicket() {
         formState: { errors },
     } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data)
         mutation.mutate(data)
-
         setAtivo(!ativo)
     };
     const notify = (name: string) => toast.success(`Ticket ${name} cadstrado com sucesso`);
     const mutation = useMutation({
         mutationFn: (data: TicketProps) => {
+
             return axios.post(`/api/ticket`, data)
                 .then(response => response.data)
         },
@@ -54,6 +61,18 @@ function NewTicket() {
             <div className={`w-screen bg-opacity-30 backdrop-blur-sm justify-center h-full fixed  ${ativo ? 'flex' : 'hidden'}`}>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex h-[50vh] mx-auto mt-20 border-blue-300 shadow-md shadow-slate-200 border rounded-md bg-slate-900 w-2/6 flex-col gap-3 items-center justify-center content-center min-h-[50%]'>
                     <header className='text-white relative -top-6'>   <h1>Novo Ticket</h1></header>
+
+                    <div className="grid grid-cols-1 gap-4 w-11/12 ">
+                        <div className="space-y-2 flex flex-col ">
+                            <Label htmlFor="clientId" className='text-white py-2'>Cliente</Label>
+                            <select {...register("clientId", { required: true })} id='clientId'
+                                className={`rounded-md h-11 text-gray-800 p-2 ${errors.clientId && "bg-red-50"
+                                    }`}>
+                                {data?.map((empresa, key) => <option key={key} value={empresa.id}>{empresa.name}</option>)}
+                            </select>
+                        </div>
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4 w-11/12 ">
                         <div className="space-y-2 flex flex-col  ">
                             <Label htmlFor="name" className='text-white py-2'>Titulo</Label>
@@ -65,11 +84,6 @@ function NewTicket() {
                         </div>
                         <div className="space-y-2 flex flex-col ">
                             <Label htmlFor="type" className='text-white py-2'>Tipo</Label>
-                            {/* <input
-                {...register("type", { required: true })} id='type'
-                className={`rounded-md h-11 text-gray-800 p-2 ${errors.type && "bg-red-50"
-                    }`}
-            /> */}
                             <select defaultValue="ABERTO"   {...register("type", { required: true })} id='type'
                                 className={`rounded-md h-11 text-gray-800 p-2 ${errors.type && "bg-red-50"
                                     }`}>
@@ -79,6 +93,7 @@ function NewTicket() {
                                 <option value="CONCLUIDO">CONCLUIDO</option>
                             </select>
                         </div>
+
                     </div>
 
                     <div className="grid gap-4  w-11/12 ">
