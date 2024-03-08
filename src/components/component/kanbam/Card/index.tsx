@@ -14,9 +14,8 @@ import { Draggable } from "@hello-pangea/dnd";
 import { playAlertLixo } from "@/helper/beep";
 import { deleteTicketApi } from "@/services/Api";
 import CardRoadmap from "../../roadMap/CardRoadmap";
-import { roadMap } from "@/helper/roadMap";
 
-function Card({ id, name, description, client, views, edit, deleta, more }: CardProps) {
+function Card({ id, name, description, client, roadMap, views, edit, deleta, more }: CardProps) {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
@@ -50,7 +49,7 @@ function Card({ id, name, description, client, views, edit, deleta, more }: Card
             {...provided.dragHandleProps}
             ref={provided.innerRef} className="bg-[#111827] p-4 md:p-4 rounded-lg">
             <Badge className="mb-2 text-gray-400 flex flex-col justify-items-start content-start w-full" variant="secondary">
-              <CardRoadmap roadMap={roadMap} />
+              {roadMap && <CardRoadmap roadMap={roadMap} />}
               <div className="flex w-full"><span className="text-white font-extrabold">#{id}</span>
                 <h3 className="hidden text-blue-800 ml-3 md:block">/ {client?.name} / <span className="text-yellow-700">{client?.type}</span></h3></div>
             </Badge>

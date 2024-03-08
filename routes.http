@@ -6,7 +6,7 @@ Content-Type: application/json
   "name":"Sem internet",
   "description":"Estamo sem internet desde as 18 horas",
   "type":"INICIADO",
-  "empresaId": 2,
+
 }
 ###
 PATCH  http://localhost:3000/api/ticket/3
@@ -53,6 +53,21 @@ Content-Type: application/json
 
 ###
 DELETE  http://localhost:3000/api/cliente/1
+Content-Type: application/json
+
+###
+POST http://localhost:3000/api/ticketRoadMap
+Content-Type: application/json
+
+  {
+    "ticketId":77,
+    "name": "INICIADO",
+    "className": "bg-blue-500",
+    "message": "Alterado"
+  }
+###
+###
+GET http://localhost:3000/api/ticketRoadMap
 Content-Type: application/json
 
 ###

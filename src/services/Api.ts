@@ -1,4 +1,4 @@
-import { TicketProps } from "@/@types/ticketTypes";
+import { RoadMapProps, TicketProps } from "@/@types/ticketTypes";
 import axios from "axios";
 
 export const getTicketApi = async (): Promise<TicketProps[]> =>
@@ -18,3 +18,8 @@ export const deleteTicketApi = async (id: number): Promise<TicketProps> => {
 
 export const getClienteApi = async (): Promise<TicketProps[]> =>
   (await axios.get("/api/cliente")).data;
+
+
+export const postRoadMap = async (roadMap: RoadMapProps): Promise<RoadMapProps> =>
+(await axios.post(`/api/ticketRoadMap`, roadMap)
+  .then(response => response.data))

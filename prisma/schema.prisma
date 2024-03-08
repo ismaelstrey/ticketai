@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
@@ -19,16 +23,17 @@ model User {
 }
 
 model Ticket {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  views       Int?
-  type        String
-  status      Boolean  @default(true)
-  client      Client?  @relation(fields: [clientId], references: [id])
-  clientId    Int?
-  created_at  DateTime @default(now())
-  upadted_at  DateTime @updatedAt
+  id            Int             @id @default(autoincrement())
+  name          String
+  description   String
+  views         Int?
+  type          String
+  status        Boolean         @default(true)
+  client        Client?         @relation(fields: [clientId], references: [id])
+  clientId      Int?
+  created_at    DateTime        @default(now())
+  upadted_at    DateTime        @updatedAt
+  ticketRoadMap ticketRoadMap[]
 
   @@map("tickets")
 }
@@ -45,8 +50,18 @@ model Client {
   @@map("clients")
 }
 
-//  id: number
-//   name: string
-//   description: string
-//   views?: number
-//   type?: string
+model ticketRoadMap {
+  id         Int      @id @default(autoincrement())
+  name       String   @default("ABERTO")
+  message    String   @default("Criado")
+  className  String
+  ticket     Ticket   @relation(fields: [ticketId], references: [id])
+  created_at DateTime @default(now())
+  upadted_at DateTime @updatedAt
+  ticketId   Int
+}
+
+// name: "INICIADO",
+// className: "bg-blue-500",
+// data: "2024-03-08T17:56:38.031Z",
+// message: "Alterado"
