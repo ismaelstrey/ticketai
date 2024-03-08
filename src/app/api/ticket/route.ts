@@ -11,6 +11,8 @@ export async function GET(request: Request) {
       views: true,
       status: true,
       client: true,
+      created_at: true,
+      upadted_at: true
 
     },
   });

@@ -9,11 +9,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { CardProps } from "@/@types/ticketTypes";
 import { useMutation, useQueryClient } from "react-query";
-
 import { toast } from "react-toastify";
 import { Draggable } from "@hello-pangea/dnd";
 import { playAlertLixo } from "@/helper/beep";
 import { deleteTicketApi } from "@/services/Api";
+import CardRoadmap from "../../roadMap/CardRoadmap";
+import { roadMap } from "@/helper/roadMap";
 
 function Card({ id, name, description, client, views, edit, deleta, more }: CardProps) {
   const queryClient = useQueryClient()
@@ -48,9 +49,10 @@ function Card({ id, name, description, client, views, edit, deleta, more }: Card
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef} className="bg-[#111827] p-4 md:p-4 rounded-lg">
-            <Badge className="mb-2 text-gray-400" variant="secondary">
-              <span className="text-white font-extrabold">#{id}</span>
-              <h3 className="hidden text-blue-800 ml-3 md:block">/ {client?.name} / <span className="text-yellow-700">{client?.type}</span></h3>
+            <Badge className="mb-2 text-gray-400 flex flex-col justify-items-start content-start w-full" variant="secondary">
+              <CardRoadmap roadMap={roadMap} />
+              <div className="flex w-full"><span className="text-white font-extrabold">#{id}</span>
+                <h3 className="hidden text-blue-800 ml-3 md:block">/ {client?.name} / <span className="text-yellow-700">{client?.type}</span></h3></div>
             </Badge>
             <div>
               <p className="text-[#9CA3AF] hidden md:block">{name}</p>
@@ -62,10 +64,11 @@ function Card({ id, name, description, client, views, edit, deleta, more }: Card
                 className="text-white cursor-pointer hover:text-blue-500"
                 onClick={() => console.log("oi FileEditIcon")}
               />
-              <TrashIcon
+              <span title={`Excluir ${name}`}>     <TrashIcon
                 className="text-white cursor-pointer hover:text-blue-500"
+
                 onClick={() => id && mutation.mutate(id)}
-              />
+              /></span>
               <CircleEllipsisIcon
                 className="text-white cursor-pointer hover:text-blue-500"
                 onClick={() => console.log("oi detalhes")}
