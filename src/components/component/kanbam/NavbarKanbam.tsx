@@ -25,7 +25,7 @@ function NavbarKanbam() {
           {/* include validation with required or other standard HTML validation rules */}
           <input
             {...register("search", { required: true })}
-            className={`rounded-md h-11 text-gray-800 p-2 ${errors.search && "bg-red-50"
+            className={`rounded-md h-11 text-gray-800 w-full p-2 ${errors.search && "bg-red-50"
               }`}
           />
           {/* errors will return when field validation fails  */}

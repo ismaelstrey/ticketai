@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { RoadMapProps, TicketProps } from '@/@types/ticketTypes';
 import { toast } from 'react-toastify';
-import { getClienteApi, postRoadMap } from '@/services/Api';
+import { createTicketApi, getClienteApi, postRoadMap } from '@/services/Api';
 type Inputs = {
     name: string;
     description: string;
@@ -36,30 +36,18 @@ function NewTicket() {
     const notify = (name: string) => toast.success(`Ticket ${name} cadstrado com sucesso`);
     const mutation = useMutation({
         mutationFn: (data: TicketProps) => {
-            let roadMap: RoadMapProps;
-            return axios.post(`/api/ticket`, data)
-                .then(response => response.data).then(
-                    () => {
-                        roadMap.ticketId = 63
-                        roadMap.name = "Abertura do ticket"
-                        roadMap.message = "Ticker criado com sucesso"
-                        postRoadMap(roadMap).then((res) => console.log("oi"))
-                    }
-                )
+            return createTicketApi(data).then((response) => response)
         },
         onSuccess: (data) => {
-
             notify(data.name)
             queryClient.invalidateQueries(
                 ["tickets"],
             )
-
         },
         onError: (error) => {
             console.log(error)
         }
     })
-
 
 
     return (
