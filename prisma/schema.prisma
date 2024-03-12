@@ -55,13 +55,8 @@ model ticketRoadMap {
   name       String   @default("ABERTO")
   message    String   @default("Criado")
   className  String
-  ticket     Ticket   @relation(fields: [ticketId], references: [id])
+  ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   created_at DateTime @default(now())
   upadted_at DateTime @updatedAt
   ticketId   Int
 }
-
-// name: "INICIADO",
-// className: "bg-blue-500",
-// data: "2024-03-08T17:56:38.031Z",
-// message: "Alterado"

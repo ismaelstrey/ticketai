@@ -15,31 +15,41 @@ import { playAlertLixo } from "@/helper/beep";
 import { deleteTicketApi } from "@/services/Api";
 import CardRoadmap from "../../roadMap/CardRoadmap";
 
-function Card({ id, name, description, client, roadMap, views, edit, deleta, more }: CardProps) {
-  const queryClient = useQueryClient()
+function Card({
+  id,
+  name,
+  description,
+  client,
+  ticketRoadMap,
+  views,
+  edit,
+  deleta,
+  more,
+}: CardProps) {
+  const queryClient = useQueryClient();
 
+  console.log(ticketRoadMap);
   const mutation = useMutation({
     mutationFn: (ticketId: number) => {
-      return deleteTicketApi(ticketId).then((response) => response)
+      return deleteTicketApi(ticketId).then((response) => response);
     },
     onSuccess: (data) => {
-      notify(data.name)
-      playAlertLixo()
-      queryClient.invalidateQueries(
-        ["tickets"],
-      )
+      notify(data.name);
+      playAlertLixo();
+      queryClient.invalidateQueries(["tickets"]);
     },
     onError() {
-      notify("Erro ao deletar")
+      notify("Erro ao deletar");
     },
-  })
+  });
 
-  const notify = (name: string) => toast.warning(`Ticket ${name} deletado com sucesso`);
+  const notify = (name: string) =>
+    toast.warning(`Ticket ${name} deletado com sucesso`);
   return (
     <>
       <Draggable
         key={id}
-        draggableId={id ? id.toString() : ''}
+        draggableId={id ? id.toString() : ""}
         index={id ? id : 0}
         shouldRespectForcePress
       >
@@ -47,11 +57,21 @@ function Card({ id, name, description, client, roadMap, views, edit, deleta, mor
           <div
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            ref={provided.innerRef} className="bg-[#111827] p-4 md:p-4 rounded-lg">
-            <Badge className="mb-2 text-gray-400 flex flex-col justify-items-start content-start w-full" variant="secondary">
-              {roadMap && <CardRoadmap roadMap={roadMap} />}
-              <div className="flex w-full"><span className="text-white font-extrabold">#{id}</span>
-                <h3 className="hidden text-blue-800 ml-3 md:block">/ {client?.name} / <span className="text-yellow-700">{client?.type}</span></h3></div>
+            ref={provided.innerRef}
+            className="bg-[#111827] p-4 md:p-4 rounded-lg"
+          >
+            {ticketRoadMap && <CardRoadmap roadMap={ticketRoadMap} />}
+            <Badge
+              className="mb-2 text-gray-400 flex flex-col justify-items-start content-start w-full"
+              variant="secondary"
+            >
+              <div className="flex w-full">
+                <span className="text-white font-extrabold">#{id}</span>
+                <h3 className="hidden text-blue-800 ml-3 md:block">
+                  / {client?.name} /{" "}
+                  <span className="text-yellow-700">{client?.type}</span>
+                </h3>
+              </div>
             </Badge>
             <div>
               <p className="text-[#9CA3AF] hidden md:block">{name}</p>
@@ -63,11 +83,13 @@ function Card({ id, name, description, client, roadMap, views, edit, deleta, mor
                 className="text-white cursor-pointer hover:text-blue-500"
                 onClick={() => console.log("oi FileEditIcon")}
               />
-              <span title={`Excluir ${name}`}>     <TrashIcon
-                className="text-white cursor-pointer hover:text-blue-500"
-
-                onClick={() => id && mutation.mutate(id)}
-              /></span>
+              <span title={`Excluir ${name}`}>
+                {" "}
+                <TrashIcon
+                  className="text-white cursor-pointer hover:text-blue-500"
+                  onClick={() => id && mutation.mutate(id)}
+                />
+              </span>
               <CircleEllipsisIcon
                 className="text-white cursor-pointer hover:text-blue-500"
                 onClick={() => console.log("oi detalhes")}
