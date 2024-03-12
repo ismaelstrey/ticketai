@@ -149,7 +149,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@mermaid-js/mermaid-cli@^10.6.1", "@mermaid-js/mermaid-cli@^10.8.0":
+"@mermaid-js/mermaid-cli@^10.8.0":
   version "10.8.0"
   resolved "https://registry.npmjs.org/@mermaid-js/mermaid-cli/-/mermaid-cli-10.8.0.tgz"
   integrity sha512-xZsGR88RsP72SAXyvjU23HzsKHsq6b7/kbnmQrEuIcPrJGPOckFiP9nzHvPh3Z04MjvpDJVjtbIspt2ZQwUzzA==
@@ -201,7 +201,7 @@
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@prisma/client@^4.0.0 || ^5.0.0", "@prisma/client@^5.10.2":
+"@prisma/client@^5.10.2":
   version "5.10.2"
   resolved "https://registry.npmjs.org/@prisma/client/-/client-5.10.2.tgz"
   integrity sha512-ef49hzB2yJZCvM5gFHMxSFL9KYrIP9udpT5rYo0CsHD4P9IKj473MbhU1gjKKftiwWBTIyrt9jukprzZXazyag==
@@ -234,13 +234,6 @@
     "@prisma/debug" "5.10.2"
     "@prisma/engines-version" "5.10.0-34.5a9203d0590c951969e85a7d07215503f4672eb9"
     "@prisma/get-platform" "5.10.2"
-
-"@prisma/generator-helper@^4.0.0 || ^5.0.0":
-  version "5.10.2"
-  resolved "https://registry.npmjs.org/@prisma/generator-helper/-/generator-helper-5.10.2.tgz"
-  integrity sha512-U1W5fBJubLMKbcfwKZHACTIw38JEl8t92BZTzSDeDvhgWPpHRtzRcCVAAqFqjpaqmrXJZ7KeFCaAfsyllliVvA==
-  dependencies:
-    "@prisma/debug" "5.10.2"
 
 "@prisma/get-platform@5.10.2":
   version "5.10.2"
@@ -1071,11 +1064,6 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
-
-dotenv@^16.3.1:
-  version "16.4.5"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.5.tgz"
-  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
 eastasianwidth@^0.2.0:
   version "0.2.0"
@@ -2607,15 +2595,6 @@ prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
-
-prisma-erd-generator@^1.11.2:
-  version "1.11.2"
-  resolved "https://registry.npmjs.org/prisma-erd-generator/-/prisma-erd-generator-1.11.2.tgz"
-  integrity sha512-abo2EBIjqJALfjm8p+uOsQk38DlU3rlLJA9/cOvcLLt8A9bjMkRwlqaZDAD/iXVZcXJRJPgJ98fEviTa+w8oTQ==
-  dependencies:
-    "@mermaid-js/mermaid-cli" "^10.6.1"
-    "@prisma/generator-helper" "^4.0.0 || ^5.0.0"
-    dotenv "^16.3.1"
 
 prisma@*, prisma@^5.10.2:
   version "5.10.2"
