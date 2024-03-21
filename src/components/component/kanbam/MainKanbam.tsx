@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import NavbarKanbam from "./NavbarKanbam";
 import ColumnKanbam from "./Column";
 import { filtraTicketType, filtraTiketPorId } from "@/helper/filters";
@@ -9,19 +9,21 @@ import { TicketProps } from "@/@types/ticketTypes";
 import { getTicketApi, updateTicketApi } from "@/services/Api";
 import { toast } from "react-toastify";
 import { playAlertSound } from "@/helper/beep";
-const ticketType = ["ABERTO", "INICIADO", "PAUSADO", "CONCLUIDO"];
+import { ticketType } from "@/helper/const";
 function MainKanbam() {
   const { data, isLoading, error, refetch } = useQuery("tickets", () => {
     return getTicketApi().then((response) => response);
   });
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (ticket: TicketProps) => {
       return updateTicketApi({ ...ticket }).then((response) => response);
     },
     onSuccess: (data) => {
-      playAlertSound()
+      playAlertSound();
       notify(data.name);
+      queryClient.refetchQueries(["tickets"]);
     },
   });
   const notify = (name: string) =>

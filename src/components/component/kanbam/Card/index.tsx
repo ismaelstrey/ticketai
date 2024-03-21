@@ -28,7 +28,6 @@ function Card({
 }: CardProps) {
   const queryClient = useQueryClient();
 
-  console.log(ticketRoadMap);
   const mutation = useMutation({
     mutationFn: (ticketId: number) => {
       return deleteTicketApi(ticketId).then((response) => response);
@@ -36,7 +35,9 @@ function Card({
     onSuccess: (data) => {
       notify(data.name);
       playAlertLixo();
-      queryClient.invalidateQueries(["tickets"]);
+      // queryClient.invalidateQueries(["tickets"]);
+      // queryClient.fetchQuery(["tickets"]);
+      queryClient.refetchQueries(["tickets"]);
     },
     onError() {
       notify("Erro ao deletar");
