@@ -7,7 +7,6 @@ interface CardRoadmapProps {
 }
 
 function Roadmap({ name, message, className, created_at }: RoadMapProps) {
-  console.log(className);
   return (
     <span
       className={`flex w-2 h-2  rounded-full ${colorType(className)}`}
@@ -18,7 +17,7 @@ function Roadmap({ name, message, className, created_at }: RoadMapProps) {
 
 function CardRoadmap({ roadMap }: CardRoadmapProps) {
   return (
-    <div className="flex -mt-2 mb-2 w-full justify-end gap-2 ">
+    <div className="flex -mt-2 mb-2 w-full justify-end gap-2 cursor-pointer">
       {roadMap.map((valor, key) => (
         <Roadmap key={key} {...valor} />
       ))}
