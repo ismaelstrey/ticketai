@@ -106,7 +106,7 @@ function Card({
         </Draggable>
       ) : (
         <div onClick={() => setDetalhes(!detalhes)}>
-          <RoadMap roadmap={ticketRoadMap} />
+          {ticketRoadMap && <RoadMap roadmap={ticketRoadMap} />}
         </div>
       )}
     </>

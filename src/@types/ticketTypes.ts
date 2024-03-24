@@ -14,7 +14,7 @@ export interface CardProps extends TicketProps {
   deleta?: (id: number) => void;
   more?: (id: number) => void;
   client?: ClientProps;
-  ticketRoadMap: RoadMapProps[];
+  ticketRoadMap?: RoadMapProps[];
 }
 export interface ColumnKanbamProps {
   title: string;
