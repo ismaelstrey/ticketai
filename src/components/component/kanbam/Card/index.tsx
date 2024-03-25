@@ -90,7 +90,6 @@ function Card({
                   onClick={() => console.log("oi FileEditIcon")}
                 />
                 <span title={`Excluir ${name}`}>
-                  {" "}
                   <TrashIcon
                     className="text-white cursor-pointer hover:text-blue-500"
                     onClick={() => id && mutation.mutate(id)}

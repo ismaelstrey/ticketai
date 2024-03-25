@@ -12,39 +12,46 @@ function RoadMapItem({
   message,
   created_at,
   status,
-  user = "Sem usuario",
+  user = "Fernando de Souza",
 }: RoadMapItemProps) {
+  const borderClass = `border-l-4 py-4 border-${cor}`;
+  const bgClass = `bg-${cor}`;
+
   return (
-    <div
-      className={`flex flex-col justify-start border-l-4 py-4 border-${cor}-500`}
-    >
-      <span className={`w-6 h-6 -ml-4 rounded-full bg-${cor}-500`}>
+    <div className={`flex flex-col justify-start ${borderClass}`}>
+      <span className="bg-iniciado border-iniciado"></span>
+      <span className="bg-pausado border-pausado"></span>
+      <span className="bg-aberto border-aberto"></span>
+      <span className="bg-cancelado border-cancelado"></span>
+      <span className="bg-concluido border-concluido"></span>
+      <span
+        className={`flex w-6 h-6 -ml-[14px]  justify-center content-center items-center rounded-full ${bgClass}`}
+      >
         {status && IconType(status)}
       </span>
       <div className="flex ml-3">
         <ul>
           <li>
             <span className="flex flex-row items-center gap-3 mt-2 text-white">
-              <FaRegCircleUser />
+              <FaRegCircleUser size={25} />
               {user}
             </span>
           </li>
           <li>
             <span className="flex flex-row items-center gap-3 mt-2 text-white">
-              <GrStatusGood />
-
-              {name}
+              <GrStatusGood size={25} />
+              {status}
             </span>
           </li>
           <li>
             <span className="flex flex-row items-center gap-3 mt-2 text-white">
-              <MdOutlineMessage />
+              <MdOutlineMessage size={25} />
               {message}
             </span>
           </li>
           <li>
             <span className="flex flex-row items-center gap-3 mt-2 text-white">
-              <IoIosTime />
+              <IoIosTime size={25} />
               {created_at}
             </span>
           </li>

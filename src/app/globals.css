@@ -6,6 +6,11 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --color-aberto: #ef4444;
+  --color-iniciado: #3b82f6;
+  --color-pausado: #eab308;
+  --color-concluido: #22c55e;
+  --color-cancelado: #b804c5;
 }
 
 @media (prefers-color-scheme: dark) {

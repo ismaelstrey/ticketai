@@ -4,6 +4,7 @@ import Card from "../Card";
 import { Droppable } from "@hello-pangea/dnd";
 import { ColumnKanbamProps } from "@/@types/ticketTypes";
 import { IconType, colorType } from "@/components/shared/Colors";
+import { HiTicket } from "react-icons/hi2";
 
 function ColumnKanbam({ title, tickets }: ColumnKanbamProps) {
   const ListaTicket = () =>
@@ -21,8 +22,14 @@ function ColumnKanbam({ title, tickets }: ColumnKanbamProps) {
         {(provided) => (
           <article ref={provided.innerRef} {...provided.droppableProps}>
             <section className="bg-[#1F2937] rounded-lg">
-              <div className={`flex h-14 rounded-t-lg w-full justify-around content-center items-center mb-4 ${colorType(title)}`}>
-                <span>{IconType(title)}</span>
+              <div
+                className={`flex h-14 rounded-t-lg w-full justify-around content-center items-center mb-4 ${colorType(
+                  title
+                )}`}
+              >
+                <span>
+                  <HiTicket size={40} className="rotate-180" color="white" />
+                </span>
                 <h2 className="text-white">{title}</h2>
                 <span></span>
               </div>
