@@ -10,10 +10,10 @@ export default function RoadMap({ roadmap }: RoadMapPropsArray) {
       return <RoadMapItem key={key} {...data} />;
     });
   return (
-    <div className="flex w-full h-full py-10 bg-[#1A1C23] items-center justify-center">
+    <div className="flex w-full h-full py-10 items-center justify-center cursor-default">
       <div className="">
         <RenderRoadMap />
-        <span className="h-20 flex justify-center items-center">
+        <span className="h-20 flex justify-center items-center text-white">
           TEMPO TOTAL: 3 horas e 25 minutos
         </span>
       </div>
