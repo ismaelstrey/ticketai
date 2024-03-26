@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "tickets" ALTER COLUMN "type" SET DEFAULT 'ABERTO',
+ALTER COLUMN "prioridade" DROP NOT NULL,
+ALTER COLUMN "prioridade" SET DEFAULT 'BAIXA';

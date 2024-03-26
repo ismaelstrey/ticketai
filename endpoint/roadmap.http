@@ -1,0 +1,19 @@
+
+
+###
+POST http://localhost:3000/api/ticketRoadMap
+Content-Type: application/json
+
+  {
+    "ticketId":77,
+    "name": "INICIADO",
+    "className": "bg-blue-500",
+    "message": "Alterado"
+  }
+
+###
+GET http://localhost:3000/api/ticketRoadMap
+Content-Type: application/json
+
+###
+

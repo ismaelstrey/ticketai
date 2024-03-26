@@ -7,9 +7,10 @@ export async function GET(request: Request) {
       id: true,
       name: true,
       message: true,
+      messages: true,
       className: true,
       created_at: true,
-      upadted_at: true
+      upadted_at: true,
     },
   });
   return NextResponse.json(data);

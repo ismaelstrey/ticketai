@@ -8,15 +8,6 @@ export const createTicketApi = async (
   ticket: TicketProps
 ): Promise<TicketProps> => {
   const response = await axios.post(`/api/ticket/`, ticket);
-
-  const { id, type } = response.data;
-
-  await postRoadMap({
-    className: type,
-    message: "Esse ticket foi aberto via api",
-    ticketId: id,
-    name: "Ticket criado",
-  });
   return response.data;
 };
 export const updateTicketApi = async ({

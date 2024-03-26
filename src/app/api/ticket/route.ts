@@ -19,13 +19,36 @@ export async function GET(request: Request) {
       upadted_at: true,
     },
   });
+
   return NextResponse.json(data);
 }
 
 export async function POST(request: Request) {
-  const data = await request.json();
-  data.clientId = Number(data.clientId);
-  console.log(data);
-  const salva = await prisma.ticket.create({ data });
-  return NextResponse.json(salva);
+  const dataTicket = await request.json();
+  dataTicket.clientId = Number(dataTicket.clientId);
+
+  const salvaTicket = await prisma.ticket.create({
+    data: {
+      name: dataTicket.name,
+      description: dataTicket.description,
+      clientId: dataTicket.clientId,
+      ticketRoadMap: {
+        create: {
+          className: "ABERTO",
+          name: "Ticket criado",
+          messages: {
+            create: {
+              message: "Criação do ticket",
+              title: "TicketCriado",
+              type: "info",
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // console.log(salvaTicket);
+
+  return NextResponse.json({ salvaTicket });
 }

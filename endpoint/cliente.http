@@ -1,0 +1,19 @@
+
+GET http://localhost:3000/api/cliente
+Content-Type: application/json
+
+###
+POST http://localhost:3000/api/cliente
+Content-Type: application/json
+
+  {
+      "name":"Tim",
+      "description":"Empresa do seguimento de telecomunicaçoes",
+      "type":"Telecom" 
+  }
+
+###
+DELETE  http://localhost:3000/api/cliente/1
+Content-Type: application/json
+
+###
